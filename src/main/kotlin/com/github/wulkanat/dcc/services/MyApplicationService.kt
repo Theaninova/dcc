@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package com.github.wulkanat.dcc.services
 
-import org.jetbrains.plugins.template.MyBundle
+import com.github.wulkanat.dcc.MyBundle
 
 class MyApplicationService {
 
