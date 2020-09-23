@@ -1,0 +1,41 @@
+// var and val are new variables
+var a: int32 = 10
+var b: int16 = 0
+
+// strings have types (zero terminated, length, etc)
+val c: String<zt> = "Hey ya!"zt
+
+// vars are reassignable
+b, a = a, b
+
+// default parameters are possible
+fun foo(a: float16 = 4): float16 {
+    return a
+}
+
+val x: float16 = foo()
+
+x = foo(60)
+
+val y: int16 = null
+
+// heap vals are variables on the heap as opposed to stack variables
+// heap vals can be nullable
+heap val z: int16? = null
+// new keyword allocates memory
+heap val zz: int16 = new int16(10)
+
+// address<type> is the same as pointer type, can be retreived through addressOf(variable) from heap or stack variables
+fun bar(a: heap float16): address<float16> {
+  return addressOf(a)
+}
+
+val adr: address<float16> = bar(zz)
+// deallocate heap variable
+delete zz
+
+// named parameter access
+fun baz(a: int32, b: int32): int32 { return a + b }
+baz(a = 10, b = 20)
+
+var a = 10

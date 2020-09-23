@@ -1,15 +1,32 @@
 <idea-plugin>
     <id>com.github.wulkanat.dcc</id>
-    <name>dcc</name>
+    <name>Dcc</name>
     <vendor>wulkanat</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.wulkanat.dcc.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.wulkanat.dcc.services.MyProjectService"/>
+
+        <fileType name="DynamicC File" implementationClass="com.github.wulkanat.dcc.language.DccFileType"
+                  fieldName="INSTANCE" language="DynamicC" extensions="dcc"/>
+
+        <lang.parserDefinition language="DynamicC"
+                               implementationClass="com.github.wulkanat.dcc.language.DccParserDefinition"/>
+
+        <lang.syntaxHighlighterFactory language="DynamicC"
+                                       implementationClass="com.github.wulkanat.dcc.language.DccSyntaxHighlighterFactory"/>
+
+        <annotator language="JAVA" implementationClass="com.github.wulkanat.dcc.language.DccAnnotator"/>
+
+        <codeInsight.lineMarkerProvider language="JAVA"
+                                        implementationClass="com.github.wulkanat.dcc.language.DccLineMarkerProvider"/>
+
+        <colorSettingsPage implementation="com.github.wulkanat.dcc.language.DccColorSettingsPage"/>
     </extensions>
 
     <projectListeners>

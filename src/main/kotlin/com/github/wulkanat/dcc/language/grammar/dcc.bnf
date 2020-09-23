@@ -1,0 +1,44 @@
+{
+    parserClass="com.github.wulkanat.dcc.language.parser.DccParser"
+
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+    psiClassPrefix="Dcc"
+    psiImplClassSuffix="Impl"
+    psiPackage="com.github.wulkanat.dcc.language.psi"
+    psiImplPackage="com.github.wulkanat.dcc.language.psi.impl"
+
+    elementTypeHolderClass="com.github.wulkanat.dcc.language.psi.DccTypes"
+    elementTypeClass="com.github.wulkanat.dcc.language.psi.DccElementType"
+    tokenTypeClass="com.github.wulkanat.dcc.language.DccTokenType"
+
+    psiImplUtilClass="com.github.wulkanat.dcc.language.psi.impl.DccPsiImplUtil"
+}
+
+dccFile ::= item_*
+
+private item_ ::= (statement|comment)
+
+private comment ::= C_STYLE_COMMENT | DOC_COMMENT | END_OF_LINE_COMMENT | BLOCK_COMMENT
+
+private typed_thing ::= COLON IDENTIFIER
+
+separator ::= SEMICOLON | LINE_BREAK
+
+block ::= LBRACE item_* RBRACE
+
+arg_declaration ::= IDENTIFIER typed_thing
+arg_declaration_list ::= LPARENTH arg_declaration? (COMMA arg_declaration)* COMMA? RPARENTH
+
+function_declaration ::= FUNCTION_KEYWORD IDENTIFIER arg_declaration_list typed_thing? block
+
+private any_var_declaration ::= IDENTIFIER typed_thing? EQUALS expression separator
+var_declaration ::= VAR_KEYWORD any_var_declaration
+val_declaration ::= VAL_KEYWORD any_var_declaration
+heap_var_declaration ::= HEAP_KEYWORD var_declaration
+heap_val_declaration ::= HEAP_KEYWORD val_declaration
+declaration ::= var_declaration | val_declaration | heap_val_declaration | heap_var_declaration
+
+
+expression ::= block
+statement ::= function_declaration | declaration

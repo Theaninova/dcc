@@ -4,10 +4,57 @@
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 
+## Example of the language
+
+```
+// var and val are new variables
+var a: int32 = 10
+var b: int16 = 0
+
+// strings have types (zero terminated, length, etc)
+val c: String<zt> = "Hey ya!"zt
+
+// vars are reassignable
+b, a = a, b
+
+// default parameters are possible
+fun foo(a: float16 = 4): float16 {
+    return a
+}
+
+val x: float16 = foo()
+
+x = foo(60)
+
+val y: int16 = null
+
+// heap vals are variables on the heap as opposed to stack variables
+// heap vals can be nullable
+heap val z: int16? = null
+// new keyword allocates memory
+heap val zz: int16 = new int16(10)
+
+// address<type> is the same as pointer type, can be retreived through addressOf(variable) from heap or stack variables
+fun bar(a: heap float16): address<float16> {
+  return addressOf(a)
+}
+
+val adr: address<float16> = bar(zz)
+// deallocate heap variable
+delete zz
+
+// named parameter access
+fun baz(a: int32, b: int32): int32 { return a + b }
+baz(a = 10, b = 20)
+
+var a = 10
+
+```
+
 ## Template ToDo list
 - [x] Create a new [IntelliJ Platform Plugin Template][template] project.
-- [ ] Verify the [pluginGroup](/gradle.properties), [plugin ID](/src/main/resources/META-INF/plugin.xml) and [sources package](/src/main/kotlin).
-- [ ] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html).
+- [x] Verify the [pluginGroup](/gradle.properties), [plugin ID](/src/main/resources/META-INF/plugin.xml) and [sources package](/src/main/kotlin).
+- [x] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html).
 - [ ] [Publish a plugin manually](https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/publishing_plugin.html) for the first time.
 - [ ] Set the Plugin ID in the above README badges.
 - [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html).

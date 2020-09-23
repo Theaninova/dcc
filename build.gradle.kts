@@ -31,6 +31,8 @@ val platformType: String by project
 val platformVersion: String by project
 val platformDownloadSources: String by project
 
+sourceSets["main"].java.srcDirs("src/main/gen")
+
 group = pluginGroup
 version = pluginVersion
 
@@ -52,10 +54,10 @@ intellij {
     downloadSources = platformDownloadSources.toBoolean()
     updateSinceUntilBuild = true
 
-//  Plugin Dependencies:
-//  https://www.jetbrains.org/intellij/sdk/docs/basics/plugin_structure/plugin_dependencies.html
-//
-//  setPlugins("java")
+    //  Plugin Dependencies:
+    //  https://www.jetbrains.org/intellij/sdk/docs/basics/plugin_structure/plugin_dependencies.html
+    //
+    setPlugins("java")
 }
 
 // Configure detekt plugin.
